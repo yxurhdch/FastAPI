@@ -1,17 +1,17 @@
-# Use an official Python runtime as a parent image
+# Базовый образ с Python
 FROM python:3.12-slim
 
-# Set the working directory
+# Установка рабочей директории
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
+# Копирование файлов проекта в контейнер
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir fastapi uvicorn pydantic
+# Установка зависимостей
+RUN pip install --no-cache-dir fastapi uvicorn pydantic python-jose cryptography passlib[bcrypt]
 
-# Make port 8000 available to the world outside this container
+# Открытие порта
 EXPOSE 8000
 
-# Run uvicorn when the container launches
+# Команда для запуска приложения
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
